@@ -36,4 +36,18 @@ class MultiBackedEnumTest extends TestCase
 
         $this->assertEquals(DummyCorrectEnum::Bar, $enum);
     }
+
+    public function test_FromReturnsCorrectEnum_GivenCorrectValue()
+    {
+        $enum = DummyCorrectEnum::from('baz alternative');
+
+        $this->assertEquals(DummyCorrectEnum::Baz, $enum);
+    }
+
+    public function test_FromThrowsValueError_GivenNonExistentValue()
+    {
+        $this->expectException(ValueError::class);
+
+        $enum = DummyCorrectEnum::from('non existent value');
+    }
 }

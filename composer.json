@@ -4,6 +4,9 @@
     "type": "library",
     "license": "MIT",
     "minimum-stability": "dev",
+    "scripts": {
+        "test": "phpunit --do-not-cache-result"
+    },
     "autoload": {
         "psr-4": {
             "TryAgainLater\\MultiBackedEnum\\": "src/"

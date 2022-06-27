@@ -9,9 +9,3 @@ use Attribute;
 #[Attribute]
 class MultiBackedEnum
 {}
-
-trait MakeMultiBacked
-{
-    use StaticMethods;
-    use InstanceMethods;
-}

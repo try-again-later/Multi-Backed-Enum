@@ -7,7 +7,7 @@ use TryAgainLater\MultiBackedEnum\{MultiBackedEnum, Values, MakeMultiBacked};
 use PHPUnit\Framework\TestCase;
 
 #[MultiBackedEnum]
-enum DummyCorrectEnum
+enum StringsBackedEnum
 {
     #[Values('foo')]
     case Foo;
@@ -25,35 +25,35 @@ class MultiBackedEnumTest extends TestCase
 {
     public function test_TryFromReturnsNull_GivenNonExistentValue()
     {
-        $enum = DummyCorrectEnum::tryFrom('non existent value');
+        $enum = StringsBackedEnum::tryFrom('non existent value');
 
         $this->assertNull($enum);
     }
 
     public function test_TryFromReturnsCorrectEnum_GivenCorrectValue()
     {
-        $enum = DummyCorrectEnum::tryFrom('bar alternative');
+        $enum = StringsBackedEnum::tryFrom('bar alternative');
 
-        $this->assertEquals(DummyCorrectEnum::Bar, $enum);
+        $this->assertEquals(StringsBackedEnum::Bar, $enum);
     }
 
     public function test_FromReturnsCorrectEnum_GivenCorrectValue()
     {
-        $enum = DummyCorrectEnum::from('baz alternative');
+        $enum = StringsBackedEnum::from('baz alternative');
 
-        $this->assertEquals(DummyCorrectEnum::Baz, $enum);
+        $this->assertEquals(StringsBackedEnum::Baz, $enum);
     }
 
     public function test_FromThrowsValueError_GivenNonExistentValue()
     {
         $this->expectException(ValueError::class);
 
-        $enum = DummyCorrectEnum::from('non existent value');
+        $enum = StringsBackedEnum::from('non existent value');
     }
 
     public function test_AllValuesReturnsCorrectArray_GivenEnum()
     {
-        $enum = DummyCorrectEnum::Bar;
+        $enum = StringsBackedEnum::Bar;
 
         $values = $enum->allValues();
 
@@ -62,7 +62,7 @@ class MultiBackedEnumTest extends TestCase
 
     public function test_ValueReturnsFirstValue_GivenEnum()
     {
-        $enum = DummyCorrectEnum::Baz;
+        $enum = StringsBackedEnum::Baz;
 
         $value = $enum->value();
 

@@ -1,5 +1,26 @@
 # Multi-backed enum
 
+<p align="center">
+  <a href="https://github.com/try-again-later/MultiBackedEnum/actions/workflows/test.yml">
+    <img
+      src="https://github.com/try-again-later/multibackedenum/actions/workflows/test.yml/badge.svg"
+      alt="Tests"
+    >
+  </a>
+  <a href="https://packagist.org/packages/try-again-later/multi-backed-enum">
+    <img
+      src="https://img.shields.io/packagist/v/try-again-later/multi-backed-enum"
+      alt="Latest Version"
+    >
+  </a>
+  <a href="https://packagist.org/packages/try-again-later/multi-backed-enum">
+    <img
+      src="https://img.shields.io/packagist/l/try-again-later/multi-backed-enum"
+      alt="Latest Version"
+    >
+  </a>
+</p>
+
 Just a proof of concept and me playing around with PHP 8 attributes.
 
 A small PHP library for creating enums with cases backed by multiple values. Useful when you have a

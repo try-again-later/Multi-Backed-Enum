@@ -50,4 +50,22 @@ class MultiBackedEnumTest extends TestCase
 
         $enum = DummyCorrectEnum::from('non existent value');
     }
+
+    public function test_AllValuesReturnsCorrectArray_GivenEnum()
+    {
+        $enum = DummyCorrectEnum::Bar;
+
+        $values = $enum->allValues();
+
+        $this->assertEqualsCanonicalizing(['bar', 'bar alternative'], $values);
+    }
+
+    public function test_ValueReturnsFirstValue_GivenEnum()
+    {
+        $enum = DummyCorrectEnum::Baz;
+
+        $value = $enum->value();
+
+        $this->assertEquals('baz', $value);
+    }
 }

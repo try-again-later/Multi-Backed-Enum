@@ -11,7 +11,7 @@ use ReflectionException;
 #[Attribute]
 class MultiBackedEnum
 {
-    public static function getValuesMapping($class)
+    public static function getReflectionEnum($class): ReflectionEnum
     {
         // There is nothing like Attribute::TARGET_ENUM or Attribute::TARGET_ENUM_CASE, so I am not
         // sure what else I was supposed to do...
@@ -34,6 +34,12 @@ class MultiBackedEnum
             );
         }
 
+        return $reflectionEnum;
+    }
+
+    public static function getValuesMapping($class)
+    {
+        $reflectionEnum = self::getReflectionEnum($class);
         $reflectionCases = $reflectionEnum->getCases();
         $valuesMapping = [];
 

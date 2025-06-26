@@ -5,6 +5,7 @@ declare(strict_types = 1);
 use TryAgainLater\MultiBackedEnum\{MultiBackedEnum, Values, MakeMultiBacked};
 
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 #[MultiBackedEnum]
 enum StringsBackedEnum
@@ -23,35 +24,40 @@ enum StringsBackedEnum
 
 class MultiBackedEnumTest extends TestCase
 {
-    public function test_TryFromReturnsNull_GivenNonExistentValue()
+    #[Test]
+    public function tryFromReturnsNull_givenNonExistentValue(): void
     {
         $enum = StringsBackedEnum::tryFrom('non existent value');
 
         $this->assertNull($enum);
     }
 
-    public function test_TryFromReturnsCorrectEnum_GivenCorrectValue()
+    #[Test]
+    public function tryFromReturnsCorrectEnum_givenCorrectValue(): void
     {
         $enum = StringsBackedEnum::tryFrom('bar alternative');
 
         $this->assertEquals(StringsBackedEnum::Bar, $enum);
     }
 
-    public function test_FromReturnsCorrectEnum_GivenCorrectValue()
+    #[Test]
+    public function fromReturnsCorrectEnum_givenCorrectValue(): void
     {
         $enum = StringsBackedEnum::from('baz alternative');
 
         $this->assertEquals(StringsBackedEnum::Baz, $enum);
     }
 
-    public function test_FromThrowsValueError_GivenNonExistentValue()
+    #[Test]
+    public function fromThrowsValueError_givenNonExistentValue(): void
     {
         $this->expectException(ValueError::class);
 
         $enum = StringsBackedEnum::from('non existent value');
     }
 
-    public function test_AllValuesReturnsCorrectArray_GivenEnum()
+    #[Test]
+    public function allValuesReturnsCorrectArray_givenEnum(): void
     {
         $enum = StringsBackedEnum::Bar;
 
@@ -60,7 +66,8 @@ class MultiBackedEnumTest extends TestCase
         $this->assertEqualsCanonicalizing(['bar', 'bar alternative'], $values);
     }
 
-    public function test_ValueReturnsFirstValue_GivenEnum()
+    #[Test]
+    public function valueReturnsFirstValue_givenEnum(): void
     {
         $enum = StringsBackedEnum::Baz;
 

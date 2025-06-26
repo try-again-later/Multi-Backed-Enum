@@ -7,11 +7,18 @@ namespace TryAgainLater\MultiBackedEnum;
 use Attribute;
 use ReflectionEnum;
 use ReflectionException;
+use UnitEnum;
 
 #[Attribute]
 class MultiBackedEnum
 {
-    public static function getReflectionEnum($class): ReflectionEnum
+    /**
+     * @template T of UnitEnum
+     * @param class-string<T> $class
+     *
+     * @return ReflectionEnum<T>
+     */
+    public static function getReflectionEnum(string $class): ReflectionEnum
     {
         // There is nothing like Attribute::TARGET_ENUM or Attribute::TARGET_ENUM_CASE, so I am not
         // sure what else I was supposed to do...
@@ -37,7 +44,13 @@ class MultiBackedEnum
         return $reflectionEnum;
     }
 
-    public static function getValuesMapping($class)
+    /**
+     * @template T of UnitEnum
+     * @param class-string<T> $class
+     *
+     * @return array<int|string, T>
+     */
+    public static function getValuesMapping(string $class): array
     {
         $reflectionEnum = self::getReflectionEnum($class);
         $reflectionCases = $reflectionEnum->getCases();
@@ -46,7 +59,7 @@ class MultiBackedEnum
         foreach ($reflectionCases as $reflectionCase) {
             if (empty($reflectionCase->getAttributes(Values::class))) {
                 throw new EnumDefinitionError(
-                        "Case '{$reflectionCase->getName()}' on enum '$class' is not annotated" .
+                    "Case '{$reflectionCase->getName()}' on enum '$class' is not annotated " .
                     "with the Values attribute."
                 );
             }
@@ -60,8 +73,10 @@ class MultiBackedEnum
                 );
             }
 
+            /** @var T */
+            $enumCase = $reflectionCase->getValue();
             foreach ($valuesAttribute->values() as $value) {
-                $valuesMapping[$value] = $reflectionCase->getValue();
+                $valuesMapping[$value] = $enumCase;
             }
         }
 

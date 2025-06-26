@@ -8,7 +8,7 @@ use ValueError;
 
 trait StaticMethods
 {
-    public static function tryFrom(mixed $rawValue)
+    public static function tryFrom(int|string $rawValue): ?self
     {
         $valuesMapping = MultiBackedEnum::getValuesMapping(self::class);
 
@@ -19,7 +19,7 @@ trait StaticMethods
         return $valuesMapping[$rawValue];
     }
 
-    public static function from(mixed $rawValue)
+    public static function from(int|string $rawValue): self
     {
         $enum = self::tryFrom($rawValue);
         if (!isset($enum)) {

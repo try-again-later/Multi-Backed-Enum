@@ -21,10 +21,25 @@
   </a>
 </p>
 
-Just a proof of concept and me playing around with PHP 8 attributes.
+Небольшая библиотека для PHP 8.1+, позволяющая создавать перечисления, вариантам которых
+может соответствовать сразу несколько скалярных значений (целых чисел или строк). Скалярные значения
+указываются с помощью атрибутов на вариантах перечисления, а новые методы добавляются через трейты.
 
-A small PHP library for creating enums with cases backed by multiple values. Useful when you have a
-bunch of "backing" values (strings or numbers) all of which identify the same thing.
+Библиотека позволяет конвертировать скалярные значения в варианты перечисления и обратно.
+
+По сути это как "backed" перечисления из PHP 8.1, но с возможностью указать несколько значений для
+одного варианта. Интерфейс повторяет методы "backed" перечислений из PHP 8.1, но также включает
+метод `allValues()`, позволяющий получить весь список скалярных значений назначенных для конкретного
+варианта перечисления.
+
+---
+
+A small PHP 8.1+ library for creating enumerations with cases backed by multiple values. Useful when
+you have a bunch of "backing" values (strings or integers) all of which identify the same
+enumeration case. Backing values are specified using attributes applied to the enumeration cases and
+the new methods are added via traits.
+
+The library allows you to convert backing values into enumeration cases and vice versa.
 
 The interface mimics PHP 8.1.0 backed enums with an addition of method `allValues()`, which returns
 a list of all "backing" values.
@@ -60,9 +75,17 @@ $status = Status::tryFrom('true');
 // Throws a ValueError
 $status = Status::from('some bad value');
 
+// Returns the first one from the list.
 // 'off'
 $stringStatus = Status::OFF->value();
 
 // ['on', 'true', 'yes']
 $stringStatuses = Status::ON->allValues();
+```
+
+## Running tests and linter (on the library iteself)
+
+```sh
+composer test
+composer lint
 ```

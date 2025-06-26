@@ -9,12 +9,15 @@ trait InstanceMethods
     /**
      * Returns the first associated value.
      */
-    public function value()
+    public function value(): int|string
     {
         return $this->allValues()[0];
     }
 
-    public function allValues()
+    /**
+     * @return list<int|string>
+     */
+    public function allValues(): array
     {
         $reflectionEnum = MultiBackedEnum::getReflectionEnum(self::class);
         $foundReflectionCase = null;
@@ -32,12 +35,12 @@ trait InstanceMethods
         if (empty($foundReflectionCase->getAttributes(Values::class))) {
             $class = self::class;
             throw new EnumDefinitionError(
-                "Case '{$reflectionCase->getName()}' on enum '$class' is not annotated" .
+                "Case '{$foundReflectionCase->getName()}' on enum '$class' is not annotated " .
                 "with the Values attribute."
             );
         }
 
-        $valuesAttribute = $reflectionCase->getAttributes(Values::class)[0]->newInstance();
+        $valuesAttribute = $foundReflectionCase->getAttributes(Values::class)[0]->newInstance();
         return $valuesAttribute->values();
     }
 }

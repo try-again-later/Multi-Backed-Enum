@@ -9,13 +9,20 @@ use Attribute;
 #[Attribute]
 class Values
 {
+    /** @var list<int|string> */
     private array $values;
 
-    public function __construct(mixed ...$values)
+    /**
+     * @param int|string ...$values
+     */
+    public function __construct(int|string ...$values)
     {
-        $this->values = $values;
+        $this->values = array_values($values);
     }
 
+    /**
+     * @return list<int|string>
+     */
     public function values(): array
     {
         return $this->values;
